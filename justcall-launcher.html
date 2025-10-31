@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>JustCall Launcher</title>
+    <script>
+      // Wait for the page to load before launching
+      window.onload = () => {
+        const params = new URLSearchParams(window.location.search);
+        const number = params.get("number") || "";
+        const person_id = params.get("person_id") || "";
+        const deal_id = params.get("deal_id") || "";
+        const lead_id = params.get("lead_id") || "";
+
+        const justcallUrl = `https://app.justcall.io/dialer?number=${encodeURIComponent(
+          number
+        )}&medium=custom&metadata={"person_id":${person_id},"deal_id":${deal_id},"lead_id":${lead_id}}&metadata_type=json`;
+
+        // Open JustCall in a new popup window
+        window.open(
+          justcallUrl,
+          "JustCallDialer",
+          "width=385,height=665,top=100,left=100,menubar=no,toolbar=no,location=no,status=no"
+        );
+
+        // Optional: close this launcher window after opening
+        setTimeout(() => window.close(), 500);
+      };
+    </script>
+  </head>
+  <body style="font-family: sans-serif; text-align: center; margin-top: 50px;">
+    <h3>Opening JustCall dialer…</h3>
+    <p>If nothing happens, <a id="manual-link" href="#">click here</a>.</p>
+
+    <script>
+      // Add a manual link in case popup blockers stop auto-open
+      const params = new URLSearchParams(window.location.search);
+      const number = params.get("number") || "";
+      const person_id = params.get("person_id") || "";
+      const deal_id = params.get("deal_id") || "";
+      const lead_id = params.get("lead_id") || "";
+      const manualUrl = `https://app.justcall.io/dialer?number=${encodeURIComponent(
+        number
+      )}&medium=custom&metadata={"person_id":${person_id},"deal_id":${deal_id},"lead_id":${lead_id}}&metadata_type=json`;
+      document.getElementById("manual-link").href = manualUrl;
+    </script>
+  </body>
+</html>
